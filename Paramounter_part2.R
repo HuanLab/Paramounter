@@ -139,10 +139,10 @@ for (q in 1:(length(filename))){
       }
       
       if(length(currSamePeakMass) > 1){
-        ppmCheck <- (2*sd(currSamePeakMass))/currRefMz * 1e6
+        ppmCheck <- (sd(currSamePeakMass))/currRefMz * 1e6
         if(ppmCheck < ppmCut){
-        daDiff <- 2*sd(currSamePeakMass)
-        ppmDiff <- (2*sd(currSamePeakMass))/currRefMz * 1e6
+        daDiff <- sd(currSamePeakMass)
+        ppmDiff <- (sd(currSamePeakMass))/currRefMz * 1e6
         currPeakWidth <- rtime[[rightInd - 1]] - rtime[[leftInd + 1]]
         currPeakScans <- rightInd - leftInd
         ppm2Ddist <- rbind(ppm2Ddist, c(currRefMz, rtime[[peakInd[z]]], ppmDiff))

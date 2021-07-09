@@ -489,34 +489,6 @@ if (Software == "MZMINE2"){
     dev.off()  
   }
 }
-if (length(filename) > 1) {
-  setwd(directory)
-  dir.create("Universal Parameters")
-  setwd("Universal Parameters")
-  MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 10))
-  colnames(MSDIALparameters) <- c("Universal parameters", "Value")
-  P <- c("mass tolerance (ppm)", "mass tolerance (Da)", "minimum peak height", "noise", "minimum S/N ratio", "minimum peak scan", 
-         "minimum peak width", "maximum peak width", "maximum mass shift", "maximum retention time shift")
-  V <- c(maxppm, maxmzdiff, minpeakheight, minnoise, minSN, minpeakscan, minpeakwidth, maxpeakwidth, maxmassshift, maxrtshift)
-  MSDIALparameters[,1] <- P
-  MSDIALparameters[,2] <- round(V, 3)
-  pdf(file = "Recommeded parameters.pdf", height=6, width=8.5)
-  grid.table(MSDIALparameters)
-  dev.off()
-} else {
-  setwd(directory)
-  dir.create("Universal Parameters")
-  setwd("Universal Parameters")
-  MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 8))
-  colnames(MSDIALparameters) <- c("Universal parameters", "Value")
-  P <- c("mass tolerance (ppm)", "mass tolerance (Da)", "minimum peak height", "noise", "minimum S/N ratio", "minimum peak scan", 
-         "minimum peak width", "maximum peak width")
-  V <- c(maxppm, maxmzdiff, minpeakheight, minnoise, minSN, minpeakscan, minpeakwidth, maxpeakwidth)
-  MSDIALparameters[,1] <- P
-  MSDIALparameters[,2] <- round(V, 3)
-  pdf(file = "Recommeded parameters.pdf", height=6, width=8.5)
-  grid.table(MSDIALparameters)
-  dev.off() 
-}
+
 print(Sys.time() - start_time)
 message("The parameters estimation has been completed. Please check the pdf file in the correponding folder.")

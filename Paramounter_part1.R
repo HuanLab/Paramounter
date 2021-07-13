@@ -126,7 +126,7 @@ for (q in 1:(length(filename))){
       }
       
       if(length(currSamePeakMass) > 1){
-        ppmDiff[z] <- (sd(currSamePeakMass))/currRefMz * 1e6
+        ppmDiff[z] <- (2*sd(currSamePeakMass))/currRefMz * 1e6
         ppm2Ddist <- rbind(ppm2Ddist, c(currRefMz, rtime[[peakInd[z]]], ppmDiff[z]))
       }
     }

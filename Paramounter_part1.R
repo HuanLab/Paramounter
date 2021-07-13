@@ -1,6 +1,6 @@
 ###############################################################
 #This is the script to perform parameters estimation
-#Jian Guo, Sam Shen, Tao Huan 2021-07-28
+#Jian Guo, Tao Huan 2021-07-28
 #Copyright @ University of British Columbia
 ###############################################################
 

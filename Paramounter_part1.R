@@ -12,6 +12,7 @@ library(gridExtra)
 
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, or MZMINE2)
 directory <- "F:/Jian_Guo/Parameter_optimize_20201105/ThermoQExactiveMTBLS201_HILIC-"
+smooth <- 0
 ################################################################################################
 setwd(directory)
 filename <- list.files(pattern = ".mzXML")
@@ -23,6 +24,28 @@ colnames(mzDiff2D) <- c("mz", "rt", "mzdiff")
 ppm2D <- as.data.frame(matrix(ncol = 3, nrow = 1))
 colnames(ppm2D) <- c("mz", "rt", "ppm")
 
+#smoothing function
+peak_smooth <- function(x,level=smooth){
+  n <- level
+  if(length(x) < 2*n){
+    return(x)
+  } else if(length(unique(x))==1){
+    return(x)
+  } else{
+    y <- vector(length=length(x))
+    for(i in 1:n){
+      y[i] <- sum(c((n-i+2):(n+1),n:1)*x[1:(i+n)])/sum(c((n-i+2):(n+1),n:1))
+    }
+    for(i in (n+1):(length(y)-n)){
+      y[i] <-  sum(c(1:(n+1),n:1)*x[(i-n):(i+n)])/sum(c(1:(n+1),n:1))
+    }
+    for(i in (length(y)-n+1):length(y)){
+      y[i] <- sum(c(1:n,(n+1):(n+i-length(x)+1))*x[(i-n):length(x)])/sum(c(1:n,(n+1):(n+i-length(x)+1)))
+    }
+    return(y)
+  }
+}
+#########################################################################################################
 for (q in 1:(length(filename))){
   # Parameter setting
   ms1data <- readMSData(files = filename[q], mode = "onDisk", msLevel. = 1)
@@ -48,19 +71,20 @@ for (q in 1:(length(filename))){
       tmpINTdata[[j]] <- tmpINTdata[[j]][index]
     }
     # Extract the intensity vectors from each m/z bin 
+    eicINTraw <- c()
     eicINT <- c()
     eicRT <- c()
     for(k in 1:length(mzData)){
       if(length(tmpINTdata[[k]]) > 0){
-        eicINT[k] <- mean(tmpINTdata[[k]])
+        eicINTraw[k] <- mean(tmpINTdata[[k]])
       }else{
-        eicINT[k] <- 0
+        eicINTraw[k] <- 0
       }
       eicRT[k] <- rtime[k]
     }
-    if(sum(eicINT != 0) == 0) next()
+    if(sum(eicINTraw != 0) == 0) next()
     # Sort the intensity vectors from each m/z bin, estimate the noise cut off and average
-    
+    eicINT <- peak_smooth(eicINTraw)
     eicNon0 <- sort(eicINT[eicINT > 0])
     if(length(eicNon0) > 10){
       for(x in seq(10,length(eicNon0), 10)){

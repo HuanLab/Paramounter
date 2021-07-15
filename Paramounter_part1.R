@@ -99,7 +99,7 @@ for (q in 1:(length(filename))){
     }else{
       cutOFF <- max(eicNon0)
     }
-
+    
     aboveTHindex <- which(eicINT > cutOFF)
     if(length(aboveTHindex) == 0) next()
     candidateSegInd <- split(aboveTHindex, cumsum(c(1, diff(aboveTHindex) != 1)))
@@ -155,7 +155,7 @@ for (q in 1:(length(filename))){
       }
     }
   }
-
+  
   ppm2D <- rbind(ppm2D, ppm2Ddist)
 }
 

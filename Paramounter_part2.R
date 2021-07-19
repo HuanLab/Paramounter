@@ -167,7 +167,7 @@ for (q in 1:(length(filename))){
           if(rightInd > length(tmpMZdata)) break()
         }
       }
-      
+      if(sum(is.na(currSamePeakMass)) > 0) next()
       if(length(currSamePeakMass) > 1){
         ppmCheck <- (2*sd(currSamePeakMass))/currRefMz * 1e6
         if(ppmCheck < ppmCut){

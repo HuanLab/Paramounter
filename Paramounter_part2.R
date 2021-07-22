@@ -11,7 +11,7 @@ library(ggplot2)
 library(gridExtra)
 
 directory <- "F:/Jian_Guo/Parameter_optimize_20201105/ThermoQExactiveMTBLS201_HILIC-"
-# User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, or Universal)
+# User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
 Software <- "XCMS"
 ppmCut <- 14
 smooth <- 0
@@ -589,6 +589,179 @@ if (Software == "Universal"){
     pdf(file = "Universal parameters.pdf", height=6, width=12)
     grid.table(Parameters)
     dev.off()
+  }
+}
+
+if (Software == "ALL"){
+  if (length(filename) > 1) {
+    setwd(directory)
+    dir.create("Parameters for XCMS")
+    setwd("Parameters for XCMS")
+    png(file="Parameters for XCMS.png",width=1500, height=1300)
+    par(mfrow=c(3,2))
+    hist(noiselevel, xlab = "noise", xlim = c(0, 10000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 10000, 50),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+    plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
+    hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+    hist(peakWidth[which(peakWidth <= 300)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,300,5), 
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+    hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+    hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+    dev.off()
+    XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 14))
+    colnames(XCMSparameters) <- c("Parameters", "Value")
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
+           "prefilter peaks", "prefilter intensity", "noise filter", "bw", "minfrac", "mzwid", "minsamp", "max")
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 2, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
+    XCMSparameters[,1] <- P
+    XCMSparameters[,2] <- round(V, 3)
+    pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
+    grid.table(XCMSparameters)
+    dev.off()
+    
+    setwd(directory)
+    dir.create("Parameters for MSDIAL")
+    setwd("Parameters for MSDIAL")
+    png(file="Parameters for MSDIAL.png",width=1500, height=1300)
+    par(mfrow=c(3,2))
+    plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
+    hist(log10(peakHeight)[which(log10(peakHeight) < 5)], xlab = "log10(peakheight)", xlim = c(1,5), xaxp  = c(0, 5, 20),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+    hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+    hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+    hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+    dev.off()
+    MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 6))
+    colnames(MSDIALparameters) <- c("Parameters", "Value")
+    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
+           "peak detection : minimum peak width", "alignment : retention time tolerance",
+           "alignment : MS1 tolerance")
+    V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan, maxmassshift, maxrtshift/60)
+    MSDIALparameters[,1] <- P
+    MSDIALparameters[,2] <- round(V, 3)
+    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=8.5)
+    grid.table(MSDIALparameters)
+    dev.off()
+    
+    setwd(directory)
+    dir.create("Parameters for MZMINE2")
+    setwd("Parameters for MZMINE2")
+    png(file="Parameters for MZMINE2.png",width=1500, height=1600)
+    par(mfrow=c(4,2))
+    hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+    plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
+    hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+    hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+    hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+    hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+    hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+    dev.off()
+    MZMINE2parameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
+    colnames(MZMINE2parameters) <- c("Parameters", "Value")
+    P <- c("mass detection : noise level", "ADAP chromatogram builder : min group size in # of scans", 
+           "ADAP chromatogram builder : group intensity threshold", "ADAP chromatogram builder : min highest intensity", 
+           "ADAP chromatogram builder : m/z tolerance", "chromatogram deconvolution : peak duration range left", 
+           "chromatogram deconvolution : peak duration range right", "alignment : m/z tolerance", "alignment : RT tolerance")
+    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth, maxpeakwidth, maxmassshift, maxrtshift)
+    
+    MZMINE2parameters[,1] <- P
+    MZMINE2parameters[,2] <- round(V, 3)
+    pdf(file = "Parameters for MZMINE2.pdf", height=6, width=12)
+    grid.table(MZMINE2parameters)
+    dev.off()
+  } else {
+    setwd(directory)
+    dir.create("Parameters for XCMS")
+    setwd("Parameters for XCMS")
+    png(file="Parameters for XCMS.png",width=1500, height=1300)
+    par(mfrow=c(2,2))
+    hist(noiselevel, xlab = "noise", xlim = c(0, 10000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 10000, 50),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+    plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
+    hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+    hist(peakWidth[which(peakWidth <= 300)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,300,5), 
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+    dev.off()
+    XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
+    colnames(XCMSparameters) <- c("Parameters", "Value")
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
+           "prefilter peaks", "prefilter intensity", "noise filter")
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 2, minpeakscan, minnoise, minnoise)
+    XCMSparameters[,1] <- P
+    XCMSparameters[,2] <- round(V, 3)
+    pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
+    grid.table(XCMSparameters)
+    dev.off()  
+    
+    setwd(directory)
+    dir.create("Parameters for MSDIAL")
+    setwd("Parameters for MSDIAL")
+    png(file="Parameters for MSDIAL.png",width=1500, height=1300)
+    par(mfrow=c(2,2))
+    plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
+    hist(log10(peakHeight)[which(log10(peakHeight) < 5)], xlab = "log10(peakheight)", xlim = c(1,5), xaxp  = c(0, 5, 20),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+    hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+    dev.off()
+    MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 4))
+    colnames(MSDIALparameters) <- c("Parameters", "Value")
+    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
+           "peak detection : minimum peak width")
+    V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan)
+    MSDIALparameters[,1] <- P
+    MSDIALparameters[,2] <- round(V, 3)
+    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=8.5)
+    grid.table(MSDIALparameters)
+    dev.off()
+    
+    setwd(directory)
+    dir.create("Parameters for MZMINE2")
+    setwd("Parameters for MZMINE2")
+    png(file="Parameters for MZMINE2.png",width=1500, height=1600)
+    par(mfrow=c(3,2))
+    hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+    plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
+    hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+    hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+    hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+    dev.off()
+    MZMINE2parameters <- as.data.frame(matrix(ncol = 2, nrow = 7))
+    colnames(MZMINE2parameters) <- c("Parameters", "Value")
+    P <- c("mass detection : noise level", "ADAP chromatogram builder : min group size in # of scans", 
+           "ADAP chromatogram builder : group intensity threshold", "ADAP chromatogram builder : min highest intensity", 
+           "ADAP chromatogram builder : m/z tolerance", "chromatogram deconvolution : peak duration range left", 
+           "chromatogram deconvolution : peak duration range right")
+    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth, maxpeakwidth)
+    
+    MZMINE2parameters[,1] <- P
+    MZMINE2parameters[,2] <- round(V, 3)
+    pdf(file = "Parameters for MZMINE2.pdf", height=6, width=12)
+    grid.table(MZMINE2parameters)
+    dev.off() 
   }
 }
 

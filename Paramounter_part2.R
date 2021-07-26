@@ -10,10 +10,10 @@ library(dplyr)
 library(ggplot2)
 library(gridExtra)
 
-directory <- "F:/Jian_Guo/Parameter_optimize_20201105/ThermoQExactiveMTBLS201_HILIC-"
+directory <- "F:/Jian_Guo/Parameter_optimize_20201105/STDMIX/PHPW"
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
 Software <- "XCMS"
-ppmCut <- 14
+ppmCut <- 50
 smooth <- 0
 ################################################################################################
 setwd(directory)
@@ -351,17 +351,17 @@ if (Software  == "XCMS"){
     png(file="Parameters for XCMS.png",width=1500, height=1300)
     par(mfrow=c(3,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 10000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 10000, 50),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakWidth[which(peakWidth <= 300)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,300,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift", col = "black")
     hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift", col = "black")
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 14))
     colnames(XCMSparameters) <- c("Parameters", "Value")
@@ -380,13 +380,13 @@ if (Software  == "XCMS"){
     png(file="Parameters for XCMS.png",width=1500, height=1300)
     par(mfrow=c(2,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 10000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 10000, 50),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakWidth[which(peakWidth <= 300)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,300,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(XCMSparameters) <- c("Parameters", "Value")
@@ -410,13 +410,13 @@ if (Software == "MSDIAL"){
     plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(log10(peakHeight)[which(log10(peakHeight) < 5)], xlab = "log10(peakheight)", xlim = c(1,5), xaxp  = c(0, 5, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift", col = "black")
     hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift", col = "black")
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 6))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
@@ -438,9 +438,9 @@ if (Software == "MSDIAL"){
     plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(log10(peakHeight)[which(log10(peakHeight) < 5)], xlab = "log10(peakheight)", xlim = c(1,5), xaxp  = c(0, 5, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 4))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
@@ -462,19 +462,19 @@ if (Software == "MZMINE2"){
     png(file="Parameters for MZMINE2.png",width=1500, height=1600)
     par(mfrow=c(4,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)", col = "black")
     hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift", col = "black")
     hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift", col = "black")
     dev.off()
     MZMINE2parameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(MZMINE2parameters) <- c("Parameters", "Value")
@@ -496,15 +496,15 @@ if (Software == "MZMINE2"){
     png(file="Parameters for MZMINE2.png",width=1500, height=1600)
     par(mfrow=c(3,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)", col = "black")
     hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     dev.off()
     MZMINE2parameters <- as.data.frame(matrix(ncol = 2, nrow = 7))
     colnames(MZMINE2parameters) <- c("Parameters", "Value")
@@ -529,21 +529,21 @@ if (Software == "Universal"){
     png(file="Universal Parameters.png",width=1500, height=1600)
     par(mfrow=c(4,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)", col = "black")
     hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift", col = "black")
     hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift", col = "black")
     dev.off()
     Parameters <- as.data.frame(matrix(ncol = 2, nrow = 10))
     colnames(Parameters) <- c("Parameters", "Value")
@@ -565,23 +565,23 @@ if (Software == "Universal"){
     png(file="Universal Parameters.png",width=1500, height=1600)
     par(mfrow=c(3,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)", col = "black")
     hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     dev.off()
     Parameters <- as.data.frame(matrix(ncol = 2, nrow = 8))
     colnames(Parameters) <- c("Parameters", "Value")
     P <- c("mass difference (ppm)", "mass difference (Da)", 
            "min peak width (seconds)", "max peak width (seconds)", "min peak width (scan number)", "max peak width (scan number)",
-           "peak height (intensity)", "peak height (S/N ratio)", )
+           "peak height (intensity)", "peak height (S/N ratio)")
     V <- c(maxppm, maxmzdiff, minpeakwidth, maxpeakwidth, minpeakscan, maxpeakscan, minpeakheight, minSN)
     
     Parameters[,1] <- P
@@ -600,17 +600,17 @@ if (Software == "ALL"){
     png(file="Parameters for XCMS.png",width=1500, height=1300)
     par(mfrow=c(3,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 10000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 10000, 50),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakWidth[which(peakWidth <= 300)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,300,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift", col = "black")
     hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift", col = "black")
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 14))
     colnames(XCMSparameters) <- c("Parameters", "Value")
@@ -631,13 +631,13 @@ if (Software == "ALL"){
     plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(log10(peakHeight)[which(log10(peakHeight) < 5)], xlab = "log10(peakheight)", xlim = c(1,5), xaxp  = c(0, 5, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift", col = "black")
     hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift", col = "black")
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 6))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
@@ -657,19 +657,19 @@ if (Software == "ALL"){
     png(file="Parameters for MZMINE2.png",width=1500, height=1600)
     par(mfrow=c(4,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)", col = "black")
     hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     hist(massShiftALL[which(massShiftALL <= 0.03)], xlab = "massShift (Da)", xlim = c(0,0.03), breaks = seq(0,0.03,0.001), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental mass shift", col = "black")
     hist(rtShiftALL[which(rtShiftALL <= 60)], xlab = "rtShift (seconds)", xlim = c(0,60), breaks = seq(0,60,2), 
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "instrumental retention time shift", col = "black")
     dev.off()
     MZMINE2parameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(MZMINE2parameters) <- c("Parameters", "Value")
@@ -691,13 +691,13 @@ if (Software == "ALL"){
     png(file="Parameters for XCMS.png",width=1500, height=1300)
     par(mfrow=c(2,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 10000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 10000, 50),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakWidth[which(peakWidth <= 300)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,300,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(XCMSparameters) <- c("Parameters", "Value")
@@ -718,9 +718,9 @@ if (Software == "ALL"){
     plot(mzDiff2D$mz, mzDiff2D$mzdiff, ylab = "mzDiff", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(log10(peakHeight)[which(log10(peakHeight) < 5)], xlab = "log10(peakheight)", xlim = c(1,5), xaxp  = c(0, 5, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 4))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
@@ -739,15 +739,15 @@ if (Software == "ALL"){
     png(file="Parameters for MZMINE2.png",width=1500, height=1600)
     par(mfrow=c(3,2))
     hist(noiselevel, xlab = "noise", xlim = c(0, 4000), breaks = seq(0, 500000000, 200), xaxp  = c(0, 4000, 40),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "noise", col = "black")
     plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z",
          cex.main=4, cex.lab=1.7, cex.axis=2, main = "mass tolerance")
     hist(SNRatio[which(SNRatio < 10)], xlab = "S/N ratio", xlim = c(0, 10), breaks = seq(0,10, 0.5), xaxp  = c(0, 10, 20),
-         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height")
+         cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak height", col = "black")
     hist(peakScans[which(peakScans < 25)], xlab = "peakscannumbers", xlim = c(0,25), breaks = seq(0,25,1), 
-         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)")
+         xaxp  = c(0, 25, 25), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width (scan numbers)", col = "black")
     hist(peakWidth[which(peakWidth <= 120)], xlab = "peakwidth (seconds)", xlim = c(0,100), breaks = seq(0,100,5), 
-         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width")
+         xaxp  = c(0, 300, 60), cex.main=4, cex.lab=1.7, cex.axis=2, main = "peak width", col = "black")
     dev.off()
     MZMINE2parameters <- as.data.frame(matrix(ncol = 2, nrow = 7))
     colnames(MZMINE2parameters) <- c("Parameters", "Value")

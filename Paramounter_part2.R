@@ -334,7 +334,7 @@ minnoise <- floor(minnoise)
 minpeakwidth <- min(peakWidth)
 minpeakwidth <- (ceiling(minpeakwidth))+3
 maxpeakwidth <- max(peakWidth)
-maxpeakwidth <- ceiling(maxpeakwidth)+30
+maxpeakwidth <- ceiling(maxpeakwidth)+3
 minpeakscan <- min(peakScans)
 minpeakscan <- floor(minpeakscan)
 maxpeakscan <- max(peakScans)

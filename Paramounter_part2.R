@@ -332,9 +332,9 @@ maxmzdiff <- (ceiling(maxmzdiff*100))/100
 minnoise <- min(noiselevel)
 minnoise <- floor(minnoise)
 minpeakwidth <- min(peakWidth)
-minpeakwidth <- (ceiling(minpeakwidth))+3
+minpeakwidth <- (ceiling(minpeakwidth))+4
 maxpeakwidth <- max(peakWidth)
-maxpeakwidth <- ceiling(maxpeakwidth)+3
+maxpeakwidth <- ceiling(maxpeakwidth)+5
 minpeakscan <- min(peakScans)
 minpeakscan <- floor(minpeakscan)
 maxpeakscan <- max(peakScans)

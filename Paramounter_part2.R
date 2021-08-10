@@ -421,8 +421,7 @@ if (Software == "MSDIAL"){
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 6))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
     P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
-           "peak detection : minimum peak width", "alignment : retention time tolerance",
-           "alignment : MS1 tolerance")
+           "peak detection : minimum peak width", "alignment : MS1 tolerance", "alignment : retention time tolerance")
     V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan, maxmassshift, maxrtshift/60)
     MSDIALparameters[,1] <- P
     MSDIALparameters[,2] <- round(V, 3)
@@ -642,8 +641,7 @@ if (Software == "ALL"){
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 6))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
     P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
-           "peak detection : minimum peak width", "alignment : retention time tolerance",
-           "alignment : MS1 tolerance")
+           "peak detection : minimum peak width", "alignment : MS1 tolerance", "alignment : retention time tolerance")
     V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan, maxmassshift, maxrtshift/60)
     MSDIALparameters[,1] <- P
     MSDIALparameters[,2] <- round(V, 3)

@@ -481,7 +481,7 @@ if (Software == "MZMINE2"){
            "ADAP chromatogram builder : group intensity threshold", "ADAP chromatogram builder : min highest intensity", 
            "ADAP chromatogram builder : m/z tolerance", "chromatogram deconvolution : peak duration range left", 
            "chromatogram deconvolution : peak duration range right", "alignment : m/z tolerance", "alignment : RT tolerance")
-    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth, maxpeakwidth, maxmassshift, maxrtshift/60)
+    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth/60, maxpeakwidth/60, maxmassshift, maxrtshift/60)
     
     MZMINE2parameters[,1] <- P
     MZMINE2parameters[,2] <- round(V, 3)
@@ -511,7 +511,7 @@ if (Software == "MZMINE2"){
            "ADAP chromatogram builder : group intensity threshold", "ADAP chromatogram builder : min highest intensity", 
            "ADAP chromatogram builder : m/z tolerance", "chromatogram deconvolution : peak duration range left", 
            "chromatogram deconvolution : peak duration range right")
-    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth, maxpeakwidth)
+    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth/60, maxpeakwidth/60)
     
     MZMINE2parameters[,1] <- P
     MZMINE2parameters[,2] <- round(V, 3)
@@ -753,7 +753,7 @@ if (Software == "ALL"){
            "ADAP chromatogram builder : group intensity threshold", "ADAP chromatogram builder : min highest intensity", 
            "ADAP chromatogram builder : m/z tolerance", "chromatogram deconvolution : peak duration range left", 
            "chromatogram deconvolution : peak duration range right")
-    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth, maxpeakwidth)
+    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth/60, maxpeakwidth/60)
     
     MZMINE2parameters[,1] <- P
     MZMINE2parameters[,2] <- round(V, 3)

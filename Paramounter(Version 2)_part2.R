@@ -10,10 +10,10 @@ library(dplyr)
 library(ggplot2)
 library(gridExtra)
 
-directory <- "F:/Jian_Guo/Paramounter_paper_20210421/paramounter_paper_20210907/stdmixtureTESTonversion2"
+directory <- "F:/Jian_Guo/Paramounter_paper_20210421/paramounter_paper_20210907/10datasetREDO_20210917/AgilentExposomeDDA/parameter"
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
 Software <- "ALL"
-ppmCut <- 40
+ppmCut <- 20
 smooth <- 0
 ################################################################################################
 setwd(directory)
@@ -703,7 +703,7 @@ if (Software == "ALL"){
            "ADAP chromatogram builder : group intensity threshold", "ADAP chromatogram builder : min highest intensity", 
            "ADAP chromatogram builder : m/z tolerance", "chromatogram deconvolution : peak duration range left", 
            "chromatogram deconvolution : peak duration range right", "alignment : m/z tolerance", "alignment : RT tolerance")
-    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth, maxpeakwidth, maxmassshift, maxrtshift/60)
+    V <- c(minnoise, minpeakscan, minnoise, minpeakheight, maxppm, minpeakwidth/60, maxpeakwidth/60, maxmassshift, maxrtshift/60)
     
     MZMINE2parameters[,1] <- P
     MZMINE2parameters[,2] <- round(V, 3)

@@ -13,7 +13,8 @@ library(gridExtra)
 directory <- "F:/Jian_Guo/Paramounter_paper_20210421/paramounter_paper_20210907/10datasetREDO_20210917/AgilentExposomeDDA/parameter"
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
 Software <- "ALL"
-ppmCut <- 20
+massSDrange <- 2
+ppmCut <- 70
 smooth <- 0
 ################################################################################################
 setwd(directory)
@@ -197,10 +198,10 @@ for (q in 1:(length(filename))){
       }
       if(sum(is.na(currSamePeakMass)) > 0) next()
       if(length(currSamePeakMass) > 1){
-        ppmCheck <- (2*sd(currSamePeakMass))/currRefMz * 1e6
+        ppmCheck <- (massSDrange*sd(currSamePeakMass))/currRefMz * 1e6
         if(ppmCheck < ppmCut){
-          daDiff <- 2*sd(currSamePeakMass)
-          ppmDiff <- (2*sd(currSamePeakMass))/currRefMz * 1e6
+          daDiff <- massSDrange*sd(currSamePeakMass)
+          ppmDiff <- (massSDrange*sd(currSamePeakMass))/currRefMz * 1e6
           currPeakWidth <- rtime[[rightInd - 1]] - rtime[[leftInd + 1]]
           currPeakScans <- rightInd - leftInd
           ppm2Ddist <- rbind(ppm2Ddist, c(currRefMz, rtime[[peakInd[z]]], ppmDiff))

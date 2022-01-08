@@ -11,7 +11,8 @@ library(ggplot2)
 library(gridExtra)
 
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, or MZMINE2)
-directory <- "F:/Jian_Guo/Paramounter_paper_20210421/paramounter_paper_20210907/stdmixtureTESTonversion2"
+directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/WATERSUltimaQTOFfromWorkbench_20220107/FORParamounter"
+massSDrange <- 2
 smooth <- 0
 ################################################################################################
 setwd(directory)
@@ -112,7 +113,7 @@ for (q in 1:(length(filename))){
       highestINT <- which(tmpINTdata[[peakInd[y]]] == max(tmpINTdata[[peakInd[y]]]))[1]
       refMZvec[y] <- tmpMZdata[[peakInd[y]]][highestINT]
     }
-   
+    
     # Estimate the universal parameters (mass tolerance, peak height, and peak width) for each m/z bin
     ppmDiff <- c()
     for(z in 1:length(peakInd)){
@@ -178,7 +179,7 @@ for (q in 1:(length(filename))){
       }
       
       if(length(currSamePeakMass) > 1){
-        ppmDiff[z] <- (2*sd(currSamePeakMass))/currRefMz * 1e6
+        ppmDiff[z] <- (massSDrange*sd(currSamePeakMass))/currRefMz * 1e6
         ppm2Ddist <- rbind(ppm2Ddist, c(currRefMz, rtime[[peakInd[z]]], ppmDiff[z]))
       }
     }

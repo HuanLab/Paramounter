@@ -192,5 +192,6 @@ ppm2D <- ppm2D[complete.cases(ppm2D),]
 ppm2D <- ppm2D[order(ppm2D[,3]),]
 ppm2D <- ppm2D[1:round(nrow(ppm2D)*0.97),]
 plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z", pch=1, cex.main=4, cex.lab=1.7, cex.axis=2)
+print(Sys.time() - start_time)
 message("Please find the cutoff line in the generated ppm distribution, and run Paramounter part 2 using the ppm cutoff")
 

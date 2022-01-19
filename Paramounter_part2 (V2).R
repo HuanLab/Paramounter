@@ -365,7 +365,7 @@ minpeakwidth <- (ceiling(minpeakwidth))+4
 maxpeakwidth <- max(peakWidth)
 maxpeakwidth <- ceiling(maxpeakwidth)+5
 minpeakscan <- min(peakScans)
-minpeakscan <- floor(minpeakscan)
+minpeakscan <- floor(minpeakscan)+2
 maxpeakscan <- max(peakScans)
 maxpeakscan <- floor(maxpeakscan)
 minSN <- min(SNRatio)

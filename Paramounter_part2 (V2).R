@@ -10,11 +10,11 @@ library(dplyr)
 library(ggplot2)
 library(gridExtra)
 
-directory <- "F:/Jian_Guo/Paramounter_paper_20210421/paramounter_paper_20210907/10datasetREDO_20210917/AgilentExposomeDDA/parameter"
+directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/confirmhowpeakwidthshouldconverttoXCMSwidth_20220117/Urine2foldHILIC-"
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
 Software <- "ALL"
 massSDrange <- 2
-ppmCut <- 70
+ppmCut <- 20
 smooth <- 0
 ################################################################################################
 setwd(directory)
@@ -120,6 +120,7 @@ for (q in 1:(length(filename))){
     }
     noiseALL[i] <- cutOFF
     
+    
     # Find the Reference m/z in each ROI from each m/z bin
     aboveTHindex <- which(eicINT > cutOFF)
     if(length(aboveTHindex) == 0) next()
@@ -197,7 +198,7 @@ for (q in 1:(length(filename))){
         }
       }
       if(sum(is.na(currSamePeakMass)) > 0) next()
-      if(length(currSamePeakMass) > 1){
+      if(length(currSamePeakMass) > 1 && length(currSamePeakMass) < 200){
         ppmCheck <- (massSDrange*sd(currSamePeakMass))/currRefMz * 1e6
         if(ppmCheck < ppmCut){
           daDiff <- massSDrange*sd(currSamePeakMass)
@@ -343,8 +344,8 @@ SNRatio <- SNRatio[order(-SNRatio)]
 SNRatio <- SNRatio[1:round(length(SNRatio)*0.97)]
 peakHeight <- peakHeight[!is.na(peakHeight)]
 peakHeight <- peakHeight[order(-peakHeight)]
+peakHeight <- peakHeight[1:round(length(peakHeight)*0.97)]
 if (length(filename) > 1) {
-  peakHeight <- peakHeight[1:round(length(peakHeight)*0.97)]
   massShiftALL <- massShiftALL[!is.na(massShiftALL)]
   massShiftALL <- massShiftALL[order(massShiftALL)]
   massShiftALL <- massShiftALL[1:round(length(massShiftALL)*0.97)]
@@ -360,12 +361,20 @@ maxmzdiff <- max(mzDiff2D[,3])
 maxmzdiff <- (ceiling(maxmzdiff*100))/100
 minnoise <- min(noiselevel)
 minnoise <- floor(minnoise)
+W <- mean(peakWidth, trim=0.05, na.rm = TRUE)
+H <- mean(peakHeight, trim=0.05, na.rm = TRUE)
+ratio <- H/W
 minpeakwidth <- min(peakWidth)
-minpeakwidth <- (ceiling(minpeakwidth))+4
 maxpeakwidth <- max(peakWidth)
-maxpeakwidth <- ceiling(maxpeakwidth)+5
+if (maxpeakwidth > 35 & ratio > 515) {
+  minpeakwidth <- 0
+  maxpeakwidth <- ceiling(maxpeakwidth)/2
+} else {
+  minpeakwidth <- (ceiling(minpeakwidth))+4
+  maxpeakwidth <- ceiling(maxpeakwidth)+5
+}
 minpeakscan <- min(peakScans)
-minpeakscan <- floor(minpeakscan)+2
+minpeakscan <- floor(minpeakscan)
 maxpeakscan <- max(peakScans)
 maxpeakscan <- floor(maxpeakscan)
 minSN <- min(SNRatio)
@@ -794,3 +803,4 @@ if (Software == "ALL"){
 
 print(Sys.time() - start_time)
 message("The parameters estimation has been completed. Please check the pdf file in the correponding folder.")
+

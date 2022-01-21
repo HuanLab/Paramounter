@@ -14,7 +14,7 @@ directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/confirmho
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
 Software <- "ALL"
 massSDrange <- 2
-ppmCut <- 20
+ppmCut <- 10
 smooth <- 0
 ################################################################################################
 setwd(directory)

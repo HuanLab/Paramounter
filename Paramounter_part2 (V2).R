@@ -10,11 +10,11 @@ library(dplyr)
 library(ggplot2)
 library(gridExtra)
 
-directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/confirmhowpeakwidthshouldconverttoXCMSwidth_20220117/Urine2foldHILIC-"
+directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/10datasetREDOwithIPOAutoTuner_20220120/BrukerUrineHILICoriginalDDA/parameter"
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
-Software <- "ALL"
+Software <- "XCMS"
 massSDrange <- 2
-ppmCut <- 10
+ppmCut <- 20
 smooth <- 0
 ################################################################################################
 setwd(directory)
@@ -117,6 +117,8 @@ for (q in 1:(length(filename))){
       cutOFF <- eicNon0[x]
     }else{
       cutOFF <- max(eicNon0)
+      sd <- 0
+      blk <- 0
     }
     noiseALL[i] <- cutOFF
     
@@ -210,7 +212,7 @@ for (q in 1:(length(filename))){
           peakWidthALL <- c(peakWidthALL, currPeakWidth)
           peakScansALL <- c(peakScansALL, currPeakScans)
           if (cutOFF > 0){
-            snALL <- c(snALL, eicINT[currPeakInd]/cutOFF)
+            snALL <- c(snALL, (eicINT[currPeakInd]-blk)/sd)
           } else {
             snALL <- c(snALL, eicINT[currPeakInd]) 
           }
@@ -368,7 +370,7 @@ minpeakwidth <- min(peakWidth)
 maxpeakwidth <- max(peakWidth)
 if (maxpeakwidth > 35 & ratio > 515) {
   minpeakwidth <- 0
-  maxpeakwidth <- ceiling(maxpeakwidth)/2
+  maxpeakwidth <- (ceiling(maxpeakwidth)+5)/2
 } else {
   minpeakwidth <- (ceiling(minpeakwidth))+4
   maxpeakwidth <- ceiling(maxpeakwidth)+5

@@ -380,6 +380,9 @@ minpeakscan <- floor(minpeakscan)
 maxpeakscan <- max(peakScans)
 maxpeakscan <- floor(maxpeakscan)
 minSN <- min(SNRatio)
+if (minSN < 3){
+  minSN <- 3
+}
 minpeakheight <- min(peakHeight)
 minpeakheight <- floor(minpeakheight)
 

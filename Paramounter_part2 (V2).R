@@ -370,7 +370,7 @@ minpeakwidth <- min(peakWidth)
 maxpeakwidth <- max(peakWidth)
 if (maxpeakwidth > 35 & ratio > 515) {
   minpeakwidth <- 0
-  maxpeakwidth <- (ceiling(maxpeakwidth)+5)/2
+  maxpeakwidth <- (ceiling(maxpeakwidth)+7)/2
 } else {
   minpeakwidth <- (ceiling(minpeakwidth))+4
   maxpeakwidth <- ceiling(maxpeakwidth)+5

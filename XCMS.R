@@ -16,8 +16,7 @@ cwp <- CentWaveParam(ppm=10,
                     noise = 134)
 data <- findChromPeaks(data, param = cwp)
 data_filtered <- filterMsLevel(data, msLevel = 1L)
-xset <- as(data_filtered, 'xcmsSet')
-  
+xset <- as(data_filtered, 'xcmsSet') 
 #ALIGNMENT  
 xset@peaks <- xset@peaks[order(xset@peaks[,11]),]
 table <- as.data.frame(xset@peaks)

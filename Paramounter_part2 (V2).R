@@ -568,7 +568,7 @@ if (Software == "MZMINE2"){
     dev.off()  
   }
 }
-if (Software == "XCMS" | Software == "MSDIAL" | Software == "MZMINE2" ){
+if (Software == "XCMS" | Software == "MSDIAL" | Software == "MZMINE2" | Software == "ALL" ){
   if (length(filename) > 1) {
     setwd(directory)
     dir.create("Universal Parameters")

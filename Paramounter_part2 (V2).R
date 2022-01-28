@@ -11,8 +11,13 @@ library(ggplot2)
 library(gridExtra)
 
 directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/10datasetREDOwithIPOAutoTuner_20220120/BrukerUrineHILICoriginalDDA/parameter"
-# User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, ALL, or Universal)
-Software <- "XCMS"
+# User input the directory and software to optimize parameters for (XCMS, MSDIAL, MZMINE2, or ALL)
+# Available choices:
+# "XCMS" for XCMS-based data processing
+# "MSDIAL" for MSDIAL-based data processing
+# "MZMINE2" for MZmine2-based data processing
+# "ALL" for all three software data processing
+Software <- "ALL"
 massSDrange <- 2
 ppmCut <- 20
 smooth <- 0
@@ -563,7 +568,7 @@ if (Software == "MZMINE2"){
     dev.off()  
   }
 }
-if (Software == "Universal"){
+if (Software == "XCMS" | Software == "MSDIAL" | Software == "MZMINE2" ){
   if (length(filename) > 1) {
     setwd(directory)
     dir.create("Universal Parameters")

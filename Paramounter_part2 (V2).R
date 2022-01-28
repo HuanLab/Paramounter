@@ -805,7 +805,5 @@ if (Software == "ALL"){
     dev.off() 
   }
 }
-
-print(Sys.time() - start_time)
 message("The parameters estimation has been completed. Please check the pdf file in the correponding folder.")
 

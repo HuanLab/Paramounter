@@ -410,7 +410,7 @@ if (Software  == "XCMS"){
     colnames(XCMSparameters) <- c("Parameters", "Value")
     P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter", "bw", "minfrac", "mzwid", "minsamp", "max")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 2, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
     pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
@@ -435,7 +435,7 @@ if (Software  == "XCMS"){
     colnames(XCMSparameters) <- c("Parameters", "Value")
     P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 2, minpeakscan, minnoise, minnoise)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
     pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
@@ -658,7 +658,7 @@ if (Software == "ALL"){
     colnames(XCMSparameters) <- c("Parameters", "Value")
     P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter", "bw", "minfrac", "mzwid", "minsamp", "max")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 2, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
     pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
@@ -744,7 +744,7 @@ if (Software == "ALL"){
     colnames(XCMSparameters) <- c("Parameters", "Value")
     P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 2, minpeakscan, minnoise, minnoise)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
     pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)

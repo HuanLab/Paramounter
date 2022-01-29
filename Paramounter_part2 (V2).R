@@ -17,7 +17,7 @@ directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/10dataset
 # "MSDIAL" for MSDIAL-based data processing
 # "MZMINE2" for MZmine2-based data processing
 # "ALL" for all three software data processing
-Software <- "ALL"
+Software <- "XCMS"
 massSDrange <- 2
 ppmCut <- 20
 smooth <- 0

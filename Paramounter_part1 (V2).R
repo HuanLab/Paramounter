@@ -11,9 +11,10 @@ library(ggplot2)
 library(gridExtra)
 
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, or MZMINE2)
-directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/WATERSUltimaQTOFfromWorkbench_20220107/FORParamounter"
+directory <- "F:/Jian_Guo/SoftwareComparison_20211103/singleDatafilecompare20220207/New10datasetResults20220204/BrukerUrineRPdiluted10DDA"
 massSDrange <- 2
 smooth <- 0
+cutoff <- 0.95
 ################################################################################################
 setwd(directory)
 filename <- list.files(pattern = ".mzXML")
@@ -192,6 +193,10 @@ ppm2D <- ppm2D[complete.cases(ppm2D),]
 ppm2D <- ppm2D[order(ppm2D[,3]),]
 ppm2D <- ppm2D[1:round(nrow(ppm2D)*0.97),]
 plot(ppm2D$mz, ppm2D$ppm, ylab = "ppm", xlab = "m/z", pch=1, cex.main=4, cex.lab=1.7, cex.axis=2)
+ppm2Ddash <- ppm2D[1:round(nrow(ppm2D)*cutoff),]
+dashline <- max(ppm2Ddash[,3]) 
+long <- length(ppm2D[,3])
+cutoffvalue <- rep(dashline,long)
+lines(ppm2D$mz, cutoffvalue, lty = "dashed", lwd = "3", col = "red")
 print(Sys.time() - start_time)
 message("Please find the cutoff line in the generated ppm distribution, and run Paramounter part 2 using the ppm cutoff")
-

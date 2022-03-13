@@ -413,12 +413,12 @@ if (Software  == "XCMS"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 14))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter", "bw", "minfrac", "mzwid", "minsamp", "max")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, 0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for XCMS.pdf", height=6, width=10.5)
     grid.table(XCMSparameters)
     dev.off()
   } else {
@@ -438,12 +438,12 @@ if (Software  == "XCMS"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, 0.01, 1, minpeakscan, minnoise, minnoise)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for XCMS.pdf", height=6, width=10.5)
     grid.table(XCMSparameters)
     dev.off()  
   }
@@ -661,12 +661,12 @@ if (Software == "ALL"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 14))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter", "bw", "minfrac", "mzwid", "minsamp", "max")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, 0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for XCMS.pdf", height=6, width=10.5)
     grid.table(XCMSparameters)
     dev.off()
     
@@ -747,12 +747,12 @@ if (Software == "ALL"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter")
-    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, 0.01, 1, minpeakscan, minnoise, minnoise)
+    V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise)
     XCMSparameters[,1] <- P
     XCMSparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for XCMS.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for XCMS.pdf", height=6, width=10.5)
     grid.table(XCMSparameters)
     dev.off()  
     

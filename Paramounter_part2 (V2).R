@@ -810,5 +810,5 @@ if (Software == "ALL"){
     dev.off() 
   }
 }
-message("The parameters estimation has been completed. Please check the pdf file in the correponding folder.")
+message("The parameters estimation has been completed. Please check the pdf file in the corresponding folder.")
 

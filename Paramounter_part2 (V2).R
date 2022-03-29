@@ -18,9 +18,9 @@ directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/10dataset
 # "MZMINE2" for MZmine2-based data processing
 # "ALL" for all three software data processing
 Software <- "XCMS"
-massSDrange <- 2
-ppmCut <- 40
-smooth <- 0
+massSDrange <- 2 #Please change the value based on your dataset.
+ppmCut <- 40 #Please change the value based on your dataset.
+smooth <- 0 #Please change the value based on your dataset.
 ################################################################################################
 setwd(directory)
 filename <- list.files(pattern = ".mzXML")

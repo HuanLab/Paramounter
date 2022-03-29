@@ -12,9 +12,9 @@ library(gridExtra)
 
 # User input the directory and software to optimize parameters for (XCMS, MSDIAL, or MZMINE2)
 directory <- "F:/Jian_Guo/SoftwareComparison_20211103/singleDatafilecompare20220207/New10datasetResults20220204/BrukerUrineRPdiluted10DDA"
-massSDrange <- 2
-smooth <- 0
-cutoff <- 0.95
+massSDrange <- 2 #Please change the value based on your dataset.
+smooth <- 0 #Please change the value based on your dataset.
+cutoff <- 0.95 #Please change the value based on your dataset.
 ################################################################################################
 setwd(directory)
 filename <- list.files(pattern = ".mzXML")

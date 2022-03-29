@@ -19,7 +19,7 @@ directory <- "F:/Jian_Guo/Paramounter_paper_20210421/Response_20211219/10dataset
 # "ALL" for all three software data processing
 Software <- "XCMS"
 massSDrange <- 2
-ppmCut <- 20
+ppmCut <- 40
 smooth <- 0
 ################################################################################################
 setwd(directory)

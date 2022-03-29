@@ -413,7 +413,7 @@ if (Software  == "XCMS"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 14))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(Please refer to the user manual for more detailed explanation)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter", "bw", "minfrac", "mzwid", "minsamp", "max")
     V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
     XCMSparameters[,1] <- P
@@ -438,7 +438,7 @@ if (Software  == "XCMS"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(Please refer to the user manual for more detailed explanation)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter")
     V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise)
     XCMSparameters[,1] <- P
@@ -468,12 +468,12 @@ if (Software == "MSDIAL"){
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 6))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
-    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
+    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height(Please refer to the user manual for more detailed explanation)", "peak detection : mass slice width", 
            "peak detection : minimum peak width", "alignment : MS1 tolerance", "alignment : retention time tolerance")
     V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan, maxmassshift, maxrtshift/60)
     MSDIALparameters[,1] <- P
     MSDIALparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=10.5)
     grid.table(MSDIALparameters)
     dev.off()
   } else {
@@ -491,12 +491,12 @@ if (Software == "MSDIAL"){
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 4))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
-    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
+    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height(Please refer to the user manual for more detailed explanation)", "peak detection : mass slice width", 
            "peak detection : minimum peak width")
     V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan)
     MSDIALparameters[,1] <- P
     MSDIALparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=10.5)
     grid.table(MSDIALparameters)
     dev.off()
   }
@@ -661,7 +661,7 @@ if (Software == "ALL"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 14))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(Please refer to the user manual for more detailed explanation)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter", "bw", "minfrac", "mzwid", "minsamp", "max")
     V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise, 5, 0.5, maxmassshift, 1, 100)
     XCMSparameters[,1] <- P
@@ -688,12 +688,12 @@ if (Software == "ALL"){
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 6))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
-    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
+    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height(Please refer to the user manual for more detailed explanation)", "peak detection : mass slice width", 
            "peak detection : minimum peak width", "alignment : MS1 tolerance", "alignment : retention time tolerance")
     V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan, maxmassshift, maxrtshift/60)
     MSDIALparameters[,1] <- P
     MSDIALparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=10.5)
     grid.table(MSDIALparameters)
     dev.off()
     
@@ -747,7 +747,7 @@ if (Software == "ALL"){
     dev.off()
     XCMSparameters <- as.data.frame(matrix(ncol = 2, nrow = 9))
     colnames(XCMSparameters) <- c("Parameters", "Value")
-    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(use 0.01 as mass tolerance for dereplication when duplicated features exist)", "Integration method", 
+    P <- c("ppm", "minimum peakwidth", "maximum peakwidth", "signal/noise threshold", "mzdiff(Please refer to the user manual for more detailed explanation)", "Integration method", 
            "prefilter peaks", "prefilter intensity", "noise filter")
     V <- c(maxppm, minpeakwidth, maxpeakwidth, minSN, -0.01, 1, minpeakscan, minnoise, minnoise)
     XCMSparameters[,1] <- P
@@ -770,12 +770,12 @@ if (Software == "ALL"){
     dev.off()
     MSDIALparameters <- as.data.frame(matrix(ncol = 2, nrow = 4))
     colnames(MSDIALparameters) <- c("Parameters", "Value")
-    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height", "peak detection : mass slice width", 
+    P <- c("mass accuracy : MS1 tolerance", "peak detection : minimum peak height(Please refer to the user manual for more detailed explanation)", "peak detection : mass slice width", 
            "peak detection : minimum peak width")
     V <- c(maxmzdiff, minpeakheight, maxmzdiff, minpeakscan)
     MSDIALparameters[,1] <- P
     MSDIALparameters[,2] <- round(V, 3)
-    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=8.5)
+    pdf(file = "Parameters for MSDIAL.pdf", height=6, width=10.5)
     grid.table(MSDIALparameters)
     dev.off()
     
